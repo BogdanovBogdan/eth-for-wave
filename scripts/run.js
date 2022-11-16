@@ -7,7 +7,7 @@ const main = async () => {
 
   console.log('\nContract deployed to:', waveContract.address);
 
-  let contractBalance = await hre.ehters.provider.getBalance(
+  let contractBalance = await hre.ethers.provider.getBalance(
     waveContract.address
   );
   console.log(
@@ -18,7 +18,7 @@ const main = async () => {
   let waveTxn = await waveContract.wave('A message!');
   await waveTxn.wait();
 
-  contractBalance = await hre.ehters.provider.getBalance(waveContract.address);
+  contractBalance = await hre.ethers.provider.getBalance(waveContract.address);
   console.log(
     'Contract balance: ',
     hre.ethers.utils.formatEther(contractBalance)

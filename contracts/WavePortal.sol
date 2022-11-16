@@ -17,7 +17,7 @@ contract WavePortal {
 
   Wave[] waves;
 
-  constructor() {
+  constructor() payable {
       console.log("Hi, it's smart contract!");
   }
 
