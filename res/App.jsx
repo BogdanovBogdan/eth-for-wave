@@ -3,11 +3,9 @@ import { ethers } from 'ethers';
 import './App.css';
 import abi from './utils/WavePortal.json';
 
-const getEthObject = () => window.ethereum;
-
 const findMetamaskAccount = async () => {
   try {
-    const ethereum = getEthObject();
+    const { ethereum } = window;
 
     if (!ethereum) {
       console.log('Make sure you have metamask!');
@@ -43,7 +41,7 @@ export default function App() {
 
   const connectWallet = async () => {
     try {
-      const ethereum = getEthObject();
+      const { ethereum } = window;
       if (!ethereum) {
         alert('Get MetaMask!');
         return;
