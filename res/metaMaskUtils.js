@@ -20,7 +20,6 @@ export async function connectWallet() {
     });
 
     console.log('Connected', accounts[0]);
-    // setCurrentAccount(accounts[0]);
     return accounts[0];
   } catch (error) {
     console.error(error);
