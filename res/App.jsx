@@ -2,32 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ethers } from 'ethers';
 import './App.css';
 import abi from './utils/WavePortal.json';
-
-const findMetamaskAccount = async () => {
-  try {
-    const { ethereum } = window;
-
-    if (!ethereum) {
-      console.log('Make sure you have metamask!');
-      return null;
-    }
-
-    console.log('Ethereum: ', { ethereum });
-    const accounts = await ethereum.request({ method: 'eth_accounts' });
-
-    if (accounts.length !== 0) {
-      const account = accounts[0];
-      console.log('Authorized account: ', account);
-      return account;
-    } else {
-      console.warn('No authorized account found');
-      return null;
-    }
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-};
+import { findMetaMaskAccount, connectWallet } from './MetaMaskUtils';
 
 export default function App() {
   const [currentAccount, setCurrentAccount] = useState('');
@@ -39,20 +14,10 @@ export default function App() {
   const contractAddress = '0x37A8434791365b3308E4D3F792b1ec18997Cd259';
   const contractABI = abi.abi;
 
-  const connectWallet = async () => {
+  const connectMetaMask = async () => {
     try {
-      const { ethereum } = window;
-      if (!ethereum) {
-        alert('Get MetaMask!');
-        return;
-      }
-
-      const accounts = await ethereum.request({
-        method: 'eth_requestAccounts',
-      });
-
-      console.log('Connected', accounts[0]);
-      setCurrentAccount(accounts[0]);
+      const connectedAccount = await connectWallet();
+      setCurrentAccount(connectedAccount);
     } catch (error) {
       console.error(error);
     }
@@ -159,8 +124,8 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const findMMAccount = async () => {
-      const account = await findMetamaskAccount();
+    const findAccount = async () => {
+      const account = await findMetaMaskAccount();
 
       if (account !== null) {
         setCurrentAccount(account);
@@ -168,7 +133,7 @@ export default function App() {
       }
     };
 
-    findMMAccount();
+    findAccount();
   }, []);
 
   return (
@@ -182,7 +147,7 @@ export default function App() {
         </div>
 
         {!currentAccount ? (
-          <button className='waveButton' onClick={connectWallet}>
+          <button className='waveButton' onClick={connectMetaMask}>
             Connect Wallet
           </button>
         ) : (
