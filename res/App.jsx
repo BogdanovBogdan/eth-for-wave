@@ -138,11 +138,13 @@ export default function App() {
   return (
     <div className='mainContainer'>
       <div className='dataContainer'>
-        <div className='header'>👋 Hey there! And there</div>
+        <div className='header'>
+          👋 Hey here. You can win some ethereum token
+        </div>
 
         <div className='bio'>
-          I am Bogdan and I working on myself! Connect your Ethereum wallet and
-          wave at me!
+          You can wave and win some ethereum on testnet goerli, and also you can
+          write me some message!
         </div>
 
         {!currentAccount ? (
